@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         renderer = new SimpleRenderer();
         renderer.addObj(new Cube(0.5f, 0, 0.2f, -3));
+        renderer.addObj(new Pyramid(0.5f, 0, 0, 0));
         glView.setRenderer(renderer);
     }
 
