@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">GLES10ex</string>
+    <string name="seekbar_z_label">Z</string>
+    <string name="seekbar_x_label">X</string>
+    <string name="seekbar_y_label">Y</string>
 </resources>
