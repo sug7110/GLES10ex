@@ -4,6 +4,8 @@ import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
@@ -11,6 +13,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     private GLSurfaceView glView;
     private SimpleRenderer renderer;
+
+    private Cube cube;
+    private Pyramid pyramid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +32,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         seekBarZ.setOnSeekBarChangeListener(this);
 
         renderer = new SimpleRenderer();
-        renderer.addObj(new Cube(0.5f, 0, 0.2f, -3));
-        renderer.addObj(new Pyramid(0.5f, 0, 0, 0));
+        cube = new Cube(0.5f);
+        pyramid = new Pyramid(0.5f);
+        renderer.setObj(cube, 0, 0, 0);
         glView.setRenderer(renderer);
     }
 
@@ -47,16 +53,37 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu");
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected");
+        switch (item.getItemId()) {
+        case R.id.item_cube:
+            renderer.setObj(cube, 0, 0, 0);
+            break;
+        case R.id.item_pyramid:
+            renderer.setObj(pyramid, 0, 0, 0);
+            break;
+        }
+        return true;
+    }
+
+    @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         switch (seekBar.getId()) {
         case R.id.seekbar_x:
-            renderer.setRotationX(progress / 100f * 360f);
+            renderer.rotateObjX(progress / 100f * 360f);
             break;
         case R.id.seekbar_y:
-            renderer.setRotationY(progress / 100f * 360f);
+            renderer.rotateObjY(progress / 100f * 360f);
             break;
         case R.id.seekbar_z:
-            renderer.setRotationZ(progress / 100f * 360f);
+            renderer.rotateObjZ(progress / 100f * 360f);
             break;
         }
     }

@@ -4,8 +4,6 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -14,23 +12,20 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
 
     public interface Obj {
         void draw(GL10 gl);
-
-        float getX();
-
-        float getY();
-
-        float getZ();
     }
 
-    private float rx = 0, ry = 0, rz = 0;
-    private ArrayList<Obj> objs;
+    private Obj obj;
+    private float x, y, z;
+    private float rx, ry, rz;
 
     SimpleRenderer() {
-        objs = new ArrayList<>();
     }
 
-    public void addObj(Obj obj) {
-        objs.add(obj);
+    public void setObj(Obj obj, float x, float y, float z) {
+        this.obj = obj;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     @Override
@@ -57,30 +52,25 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
         gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
-        // ry = (ry + 2) % 360;
-
-        for (Obj obj : objs) {
-            gl.glMatrixMode(GL10.GL_MODELVIEW);
-            gl.glLoadIdentity();
-            gl.glTranslatef(obj.getX(), obj.getY(), obj.getZ());
-            gl.glRotatef(rx, 1, 0, 0);
-            gl.glRotatef(ry, 0, 1, 0);
-            gl.glRotatef(rz, 0, 0, 1);
-            gl.glScalef(1, 1, 1);
-            obj.draw(gl);
-        }
-
+        gl.glMatrixMode(GL10.GL_MODELVIEW);
+        gl.glLoadIdentity();
+        gl.glTranslatef(x, y, z);
+        gl.glRotatef(rx, 1, 0, 0);
+        gl.glRotatef(ry, 0, 1, 0);
+        gl.glRotatef(rz, 0, 0, 1);
+        gl.glScalef(1, 1, 1);
+        obj.draw(gl);
     }
 
-    public void setRotationX(float th) {
+    public void rotateObjX(float th) {
         rx = th;
     }
 
-    public void setRotationY(float th) {
+    public void rotateObjY(float th) {
         ry = th;
     }
 
-    public void setRotationZ(float th) {
+    public void rotateObjZ(float th) {
         rz = th;
     }
 }

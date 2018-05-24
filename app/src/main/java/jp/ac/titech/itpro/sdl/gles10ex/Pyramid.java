@@ -8,10 +8,9 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class Pyramid implements SimpleRenderer.Obj {
 
-    private FloatBuffer vbuf;
-    private float x, y, z;
+    private final FloatBuffer vbuf;
 
-    Pyramid(float s, float x, float y, float z) {
+    Pyramid(float s) {
         float[] vertices = {
                 // bottom
                 -s, 0, -s,
@@ -39,9 +38,6 @@ public class Pyramid implements SimpleRenderer.Obj {
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
         vbuf.put(vertices);
         vbuf.position(0);
-        this.x = x;
-        this.y = y;
-        this.z = z;
     }
 
     @Override
@@ -68,20 +64,5 @@ public class Pyramid implements SimpleRenderer.Obj {
         // front
         gl.glNormal3f(0, 1, 1);
         gl.glDrawArrays(GL10.GL_TRIANGLES, 13, 3);
-    }
-
-    @Override
-    public float getX() {
-        return x;
-    }
-
-    @Override
-    public float getY() {
-        return y;
-    }
-
-    @Override
-    public float getZ() {
-        return z;
     }
 }
