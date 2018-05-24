@@ -15,11 +15,10 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
     }
 
     private Obj obj;
-    private float x, y, z;
-    private float rx, ry, rz;
+    private float x, y, z;     // object position
+    private float rx, ry, rz;  // object rotation
 
-    SimpleRenderer() {
-    }
+    SimpleRenderer() {}
 
     public void setObj(Obj obj, float x, float y, float z) {
         this.obj = obj;
@@ -43,7 +42,7 @@ public class SimpleRenderer implements GLSurfaceView.Renderer {
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL10.GL_PROJECTION);
         gl.glLoadIdentity();
-        GLU.gluPerspective(gl, 20, ((float) width) / height, 1, 50);
+        GLU.gluPerspective(gl, 30, ((float) width) / height, 1, 50);
         GLU.gluLookAt(gl, 0, 0, 10, 0, 0, 0, 0, 1, 0);
     }
 

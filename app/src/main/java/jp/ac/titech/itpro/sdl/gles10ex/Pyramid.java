@@ -8,35 +8,36 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class Pyramid implements SimpleRenderer.Obj {
 
+    private final static float[] VERTICES = {
+            // bottom
+            -1, 0, -1,
+            1, 0, -1,
+            -1, 0, 1,
+            1, 0, 1,
+            // left
+            -1, 0, -1,
+            0, 1, 0,
+            -1, 0, 1,
+            // right
+            1, 0, -1,
+            0, 1, 0,
+            1, 0, 1,
+            // back
+            -1, 0, -1,
+            0, 1, 0,
+            1, 0, -1,
+            // front
+            -1, 0, 1,
+            0, 1, 0,
+            1, 0, 1
+    };
+
     private final FloatBuffer vbuf;
 
-    Pyramid(float s) {
-        float[] vertices = {
-                // bottom
-                -s, 0, -s,
-                s, 0, -s,
-                -s, 0, s,
-                s, 0, s,
-                // left
-                -s, 0, -s,
-                0, s, 0,
-                -s, 0, s,
-                // right
-                s, 0, -s,
-                0, s, 0,
-                s, 0, s,
-                // back
-                -s, 0, -s,
-                0, s, 0,
-                s, 0, -s,
-                // front
-                -s, 0, s,
-                0, s, 0,
-                s, 0, s
-        };
-        vbuf = ByteBuffer.allocateDirect(vertices.length * 4)
+    Pyramid() {
+        vbuf = ByteBuffer.allocateDirect(VERTICES.length * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        vbuf.put(vertices);
+        vbuf.put(VERTICES);
         vbuf.position(0);
     }
 

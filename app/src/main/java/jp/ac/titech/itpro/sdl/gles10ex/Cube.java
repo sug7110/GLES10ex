@@ -8,44 +8,45 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class Cube implements SimpleRenderer.Obj {
 
+    private final static float[] VERTICES = {
+            // left
+            -1, -1, -1,
+            -1, -1, 1,
+            -1, 1, -1,
+            -1, 1, 1,
+            // right
+            1, -1, -1,
+            1, -1, 1,
+            1, 1, -1,
+            1, 1, 1,
+            // bottom
+            -1, -1, -1,
+            1, -1, -1,
+            -1, -1, 1,
+            1, -1, 1,
+            // top
+            -1, 1, -1,
+            1, 1, -1,
+            -1, 1, 1,
+            1, 1, 1,
+            // back
+            -1, -1, -1,
+            -1, 1, -1,
+            1, -1, -1,
+            1, 1, -1,
+            // front
+            -1, -1, 1,
+            -1, 1, 1,
+            1, -1, 1,
+            1, 1, 1
+    };
+
     private final FloatBuffer vbuf;
 
-    Cube(float s) {
-        float[] vertices = {
-                // left
-                -s, -s, -s,
-                -s, -s, s,
-                -s, s, -s,
-                -s, s, s,
-                // right
-                s, -s, -s,
-                s, -s, s,
-                s, s, -s,
-                s, s, s,
-                // bottom
-                -s, -s, -s,
-                s, -s, -s,
-                -s, -s, s,
-                s, -s, s,
-                // top
-                -s, s, -s,
-                s, s, -s,
-                -s, s, s,
-                s, s, s,
-                // back
-                -s, -s, -s,
-                -s, s, -s,
-                s, -s, -s,
-                s, s, -s,
-                // front
-                -s, -s, s,
-                -s, s, s,
-                s, -s, s,
-                s, s, s
-        };
-        vbuf = ByteBuffer.allocateDirect(vertices.length * 4)
+    Cube() {
+        vbuf = ByteBuffer.allocateDirect(VERTICES.length * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        vbuf.put(vertices);
+        vbuf.put(VERTICES);
         vbuf.position(0);
     }
 
@@ -77,4 +78,5 @@ public class Cube implements SimpleRenderer.Obj {
         gl.glNormal3f(0, 0, 1);
         gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
     }
+
 }

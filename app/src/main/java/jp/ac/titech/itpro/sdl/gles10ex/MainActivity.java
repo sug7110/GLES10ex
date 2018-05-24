@@ -27,13 +27,16 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         SeekBar seekBarX = findViewById(R.id.seekbar_x);
         SeekBar seekBarY = findViewById(R.id.seekbar_y);
         SeekBar seekBarZ = findViewById(R.id.seekbar_z);
+        seekBarX.setMax(360);
+        seekBarY.setMax(360);
+        seekBarZ.setMax(360);
         seekBarX.setOnSeekBarChangeListener(this);
         seekBarY.setOnSeekBarChangeListener(this);
         seekBarZ.setOnSeekBarChangeListener(this);
 
         renderer = new SimpleRenderer();
-        cube = new Cube(0.5f);
-        pyramid = new Pyramid(0.5f);
+        cube = new Cube();
+        pyramid = new Pyramid();
         renderer.setObj(cube, 0, 0, 0);
         glView.setRenderer(renderer);
     }
@@ -77,13 +80,13 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         switch (seekBar.getId()) {
         case R.id.seekbar_x:
-            renderer.rotateObjX(progress / 100f * 360f);
+            renderer.rotateObjX(progress);
             break;
         case R.id.seekbar_y:
-            renderer.rotateObjY(progress / 100f * 360f);
+            renderer.rotateObjY(progress);
             break;
         case R.id.seekbar_z:
-            renderer.rotateObjZ(progress / 100f * 360f);
+            renderer.rotateObjZ(progress);
             break;
         }
     }
